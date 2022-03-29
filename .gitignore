@@ -4,4 +4,6 @@ __pycache__/
 input/
 output/
 
+# for local test
 .env
+.event

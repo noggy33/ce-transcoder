@@ -7,9 +7,5 @@ setup(
     install_requires=[
         'ibm-cos-sdk',
         'ffmpeg-python'
-    ],
-    entry_points='''
-        [console_scripts]
-        app=app
-    ''',
+    ]
 )

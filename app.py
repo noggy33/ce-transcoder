@@ -1,8 +1,8 @@
-# from cos import CloudObjectStorage, COSError
 import ibm_boto3
 from ibm_botocore.client import Config, ClientError
 import ffmpeg
 import os
+import json
 
 # Get from Configmap on Kubernetes
 COS_ENDPOINT = os.getenv('COS_ENDPOINT')
@@ -74,7 +74,7 @@ def convert_item(input_file):
     output_name = OUTPUT_PATH + video_name + ".m3u8"
     seg_name = OUTPUT_PATH + video_name + "%3d.ts"
 
-    # Output Stream をもとに変換処理を行う
+    # FFMPEGでMP4からHLSに変換する
     output_stream = ffmpeg.output(
         input_stream, 
         output_name, 
@@ -88,17 +88,21 @@ def convert_item(input_file):
 
 if __name__ == "__main__":
 
-    bucket_name = "test433151"
-    item_name = "test.mp4"
+    # Get Bucket Name & Item Name from event information
+    event = os.getenv('CE_DATA')
+    print(event)
+    json = json.loads(event)
+    bucket_name = json['bucket']
+    item_name = json['key']
 
-    # 1. Download MP4 file
+    # Download MP4 file from COS
     download_item(bucket_name, item_name)
 
-    # 2. comvert MP4 to HLS
+    # comvert MP4 to HLS
     input_file = INPUT_PATH + item_name
     convert_item(input_file)
 
-    # 3. Upload HLS file
+    # 3. Upload HLS file to COS
     # 4. Delete MP4 & HLS
 
     print ("hoge")
