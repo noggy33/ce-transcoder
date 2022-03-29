@@ -3,6 +3,7 @@ from ibm_botocore.client import Config, ClientError
 import ffmpeg
 import os
 import json
+import glob
 
 # Get from Configmap on Kubernetes
 COS_ENDPOINT = os.getenv('COS_ENDPOINT')
@@ -26,7 +27,7 @@ cos = ibm_boto3.resource("s3",
   endpoint_url=COS_ENDPOINT
 )
 
-# Download Origin Video from COS
+# Download Origin Video from COS INPUT Bucket
 def download_item(bucket_name, item_name):
 
     # 入力元のディレクトリが存在しない場合は作成する
@@ -85,12 +86,30 @@ def convert_item(input_file):
         hls_list_size=0)
     ffmpeg.run(output_stream)
 
+# Upload HLS Files to COS OUTPUT Bucket
+def upload_files(bucket_name):
+    files = glob.glob(OUTPUT_PATH + "*")
+    for file in files:
+        
+        key = file.split("/")[-1]
+
+        print("Uploading file to bucket: {0}, key: {1}, path: {2}".format(bucket_name, key, file))
+        try:
+            cos.Object(bucket_name, key).upload_file(file)
+            print("Upload succeed !!")
+
+        except ClientError as be:
+            print("CLIENT ERROR: {0}¥n".format(be))
+            break
+
+        except Exception as e:
+            print("Unable to retrieve file contents: {0}".format(e))
+            break
 
 if __name__ == "__main__":
 
     # Get Bucket Name & Item Name from event information
     event = os.getenv('CE_DATA')
-    print(event)
     json = json.loads(event)
     bucket_name = json['bucket']
     item_name = json['key']
@@ -103,6 +122,7 @@ if __name__ == "__main__":
     convert_item(input_file)
 
     # 3. Upload HLS file to COS
+    bucket_hls = "hls-video"
+    upload_files(bucket_hls)
     # 4. Delete MP4 & HLS
-
-    print ("hoge")
+    
