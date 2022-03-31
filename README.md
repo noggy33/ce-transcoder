@@ -1,14 +1,9 @@
 # Readme
 
-@todo ConfigMap と Secret の設定手順を追記
-  
-
 ## 概要
 
-`IBM Cloud Code Engine` を利用した動画変換 (MP4 to HLS) を自動化するプログラムです。
-
+`IBM Cloud Code Engine` を利用した動画変換 (MP4 to HLS) を自動化するプログラムです。  
 所定の `IBM Cloud Object Storage` (COS) の `Bucket` にアップロードされた MP4 ファイルを HLS 形式に変換し、別の `Bucket` にアップロードします。
-  
 
 ## 利用するリソース
 
@@ -37,7 +32,6 @@
 		- 変換処理を行うコンテナイメージを配置するネームスペース
 	- `transcoder`
 		- 動画変換を行うコンテナイメージ
-  
 
 ## IBM Cloud にツールをデプロイする
 
@@ -82,7 +76,6 @@ ibmcloud cos bucket-create -bucket hls-video
 ```
 ibmcloud cos buckets
 ```
-  
 
 ### 2. `Code Engine`のプロジェクトを作成する
 
@@ -105,7 +98,6 @@ ibmcloud ce project create --name ce-transcoder
 ```
 ibmcloud ce project list
 ```
-  
 
 ### 3. `Code Engine` に `Notifications Manager` のロールを割り当てる
 
@@ -123,12 +115,10 @@ ibmcloud iam authorization-policy-create codeengine cloud-object-storage "Notifi
 ```
 ibmcloud iam authorization-policies
 ```
-  
 
 ### 4. 動画変換用のアプリケーションコードを作成する
 
 #### 4.1. 必要に応じてコードを変更する
-  
 
 ### 5. プライベートレジストリを作成する
 
@@ -146,7 +136,6 @@ ibmcloud cr region-set jp-tok
 ```
 ibmcloud cr namespace-add privaterepo
 ```
-  
 
 ### 6. ビルドを作成する
 
@@ -169,7 +158,6 @@ ibmcloud ce buildrun submit --build build-transcoder
 ```
 ibmcloud ce buildrun get -n [build id]
 ```
-  
 
 ### 7. `Code Engine` の `ConfigMap` と `Secrets` を作成する
 
@@ -201,7 +189,6 @@ ibmcloud ce secret create --name sec-transcoder ¥
 ```
 ibmcloud ce secret get --name sec-transcoder
 ```
-  
 
 ### 8. `Code Engine` のジョブを作成する
 
@@ -214,7 +201,6 @@ ibmcloud ce job create --name job-transcoder --env-cm cfg-transcoder --env-sec s
 ```
 ibmcloud ce jobrun list
 ```
-  
 
 ### 9. `Code Engine` の `Subscription` を作成する
 
@@ -227,7 +213,6 @@ ibmcloud ce subscription cos create --name sub-transcoder --destination-type job
 ```
 ibmcloud ce subscription cos get -n sub-transcoder
 ```
-  
 
 ## ジョブを実行する
 
@@ -248,7 +233,6 @@ ibmcloud ce jobrun get --name [job id]
 ```
 ibmcloud ce jobrun logs --instance [job instance id]
 ```
-  
 
 #### 5. ジョブが成功したことを確認し、出力された　HLS ファイルを確認する
 ブラウザで `hls-video` バケットにアクセスし、 HLS ファイルが格納されていることを確認する。
