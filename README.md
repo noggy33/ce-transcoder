@@ -192,7 +192,7 @@ ibmcloud ce subscription cos get -n sub-transcoder
 
 ### 1. `COS` の `mp4-video` に 変換元となる MP4 ファイルをアップロードする
 
-* ブラウザで `mp4-video` バケットにアクセスし、 MP4 ファイルをアップロードする
+ブラウザで `mp4-video` バケットにアクセスし、 MP4 ファイルをアップロードする
 
 ### 2. ジョブが自動的に実行されたことを確認する
 
