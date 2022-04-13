@@ -144,9 +144,19 @@ ibmcloud cr namespace-add privaterepo
 ibmcloud ce project select -n ce-transcoder
 ```
 
+#### 6.2. API Keyを作成する
+```
+ibmcloud iam api-key-create iamapikey -d "CE API Key for CR access-" --file key_file
+```
+
+#### 6.2. `Code Engine` のプロジェクトにレジストリを登録する
+```
+ibmcloud ce registry create --name ce-registry-key --server us.icr.io --username iamapikey --pfj key_file 
+```
+
 #### 6.2. ビルドを作成する
 ```
-ibmcloud ce build create --name build-transcoder --src https://github.com/noggy33/ce-transcoder --cm master --rs ce-default-icr-jp-tok --image jp.icr.io/privaterepo/transcoder --sz small
+ibmcloud ce build create --name build-transcoder --src https://github.com/noggy33/ce-transcoder --cm master --rs ce-registry-key --image jp.icr.io/privaterepo/transcoder --sz small
 ```
 
 #### 6.3. ビルドを作成する
