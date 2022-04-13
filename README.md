@@ -146,7 +146,7 @@ ibmcloud ce project select -n ce-transcoder
 
 #### 6.2. API Keyを作成する
 ```
-ibmcloud iam api-key-create iamapikey -d "CE API Key for CR access-" --file key_file
+ibmcloud iam api-key-create iamapikey -d "CE API Key for CR access" --file key_file
 ```
 
 #### 6.3. `Code Engine` のプロジェクトにレジストリを登録する
@@ -173,10 +173,10 @@ ibmcloud ce buildrun get -n [build id]
 
 #### 7.1. `ConfigMap` を作成する
 ```
-ibmcloud ce configmap create --name cfg-transcoder ¥
-    --from-literal　"COS_ENDPOINT=[COS ENDPOINT]" ¥
-    --from-literal　"COS_AUTH_ENDPOINT=[COS AUTH ENDPOINT]" ¥
-    --from-literal　"COS_RESOURCE_CRN=[COS RESOURCE CRN]" ¥
+ibmcloud ce configmap create --name cfg-transcoder \
+    --from-literal　"COS_ENDPOINT=[COS ENDPOINT]" \
+    --from-literal　"COS_AUTH_ENDPOINT=[COS AUTH ENDPOINT]" \
+    --from-literal　"COS_RESOURCE_CRN=[COS RESOURCE CRN]" \
     --from-literal　"COS_BUCKET_LOCATION=[COS STORAGE CLASS]"
 ```
 
@@ -189,13 +189,18 @@ ibmcloud ce configmap create --name cfg-transcoder ¥
 ibmcloud ce configmap get --name cfg-transcoder
 ```
 
-#### 7.3. `Secrets` を作成する
+#### 7.3. `IAM` で `API Key` を作成する
 ```
-ibmcloud ce secret create --name sec-transcoder ¥
+ibmcloud iam api-key-create ce-cos-write -d "CE API Key for COS access"
+```
+
+#### 7.4. `Secrets` を作成する
+```
+ibmcloud ce secret create --name sec-transcoder \
     --from-literal "COS_API_KEY_ID=[API KEY]"
 ```
 
-#### 7.4. `Secrets` を確認する
+#### 7.5. `Secrets` を確認する
 ```
 ibmcloud ce secret get --name sec-transcoder
 ```
