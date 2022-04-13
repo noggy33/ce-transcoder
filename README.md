@@ -209,19 +209,19 @@ ibmcloud ce secret get --name sec-transcoder
 
 #### 8.1. ジョブを作成する
 ```
-ibmcloud ce job create --name job-transcoder --env-cm cfg-transcoder --env-sec sec-transcoder --es 2G --memory 4G --cpu 2 --rs ce-default-icr-jp-tok --image jp.icr.io/privaterepo/transcoder
+ibmcloud ce job create --name job-transcoder --env-cm cfg-transcoder --env-sec sec-transcoder --es 2G --memory 4G --cpu 2 --rs ce-registry-key --image jp.icr.io/privaterepo/transcoder
 ```
 
 #### 8.2. ジョブが作成されたことを確認する
 ```
-ibmcloud ce jobrun list
+ibmcloud ce job list
 ```
 
 ### 9. `Code Engine` の `Subscription` を作成する
 
 #### 9.1. バケットの変更のサブスクリプションを設定する
 ```
-ibmcloud ce subscription cos create --name sub-transcoder --destination-type job --destination job-transcoder --bucket test433151 --event-type write
+ibmcloud ce subscription cos create --name sub-transcoder --destination-type job --destination job-transcoder --bucket mp4-video --event-type write
 ```
 
 #### 9.2. サブスクリプションが作成されたことを確認する
