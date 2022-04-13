@@ -151,7 +151,7 @@ ibmcloud iam api-key-create iamapikey -d "CE API Key for CR access-" --file key_
 
 #### 6.3. `Code Engine` のプロジェクトにレジストリを登録する
 ```
-ibmcloud ce registry create --name ce-registry-key --server us.icr.io --username iamapikey --pfj key_file 
+ibmcloud ce registry create --name ce-registry-key --server jp.icr.io --username iamapikey --pfj key_file 
 ```
 
 #### 6.4. ビルドを作成する
