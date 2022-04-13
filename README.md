@@ -149,22 +149,22 @@ ibmcloud ce project select -n ce-transcoder
 ibmcloud iam api-key-create iamapikey -d "CE API Key for CR access-" --file key_file
 ```
 
-#### 6.2. `Code Engine` のプロジェクトにレジストリを登録する
+#### 6.3. `Code Engine` のプロジェクトにレジストリを登録する
 ```
 ibmcloud ce registry create --name ce-registry-key --server us.icr.io --username iamapikey --pfj key_file 
 ```
 
-#### 6.2. ビルドを作成する
+#### 6.4. ビルドを作成する
 ```
 ibmcloud ce build create --name build-transcoder --src https://github.com/noggy33/ce-transcoder --cm master --rs ce-registry-key --image jp.icr.io/privaterepo/transcoder --sz small
 ```
 
-#### 6.3. ビルドを作成する
+#### 6.5. ビルドを実行する
 ```
 ibmcloud ce buildrun submit --build build-transcoder
 ```
 
-#### 6.4. ビルドの実行結果を確認する
+#### 6.6. ビルドの実行結果を確認する
 ```
 ibmcloud ce buildrun get -n [build id]
 ```
