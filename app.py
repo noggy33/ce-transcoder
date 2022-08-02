@@ -124,7 +124,7 @@ if __name__ == "__main__":
     convert_item(input_file)
 
     # 3. Upload HLS file to COS
-    bucket_hls = "hls-video"
+    bucket_hls = "hls-videos"
     upload_files(bucket_hls)
     # 4. Delete MP4 & HLS
     
