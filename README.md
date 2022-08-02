@@ -177,7 +177,8 @@ ibmcloud ce configmap create --name cfg-transcoder \
     --from-literal　"COS_ENDPOINT=[COS ENDPOINT]" \
     --from-literal　"COS_AUTH_ENDPOINT=[COS AUTH ENDPOINT]" \
     --from-literal　"COS_RESOURCE_CRN=[COS RESOURCE CRN]" \
-    --from-literal　"COS_BUCKET_LOCATION=[COS STORAGE CLASS]"
+    --from-literal　"COS_BUCKET_LOCATION=[COS STORAGE CLASS]" \
+    --from-literal　"COS_HLS_BUCKET=[COS_HLS_BUCKET]"     
 ```
 
 - 変数の値は各自の環境に合わせて入力してください。
