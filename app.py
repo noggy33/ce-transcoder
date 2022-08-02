@@ -83,7 +83,9 @@ def convert_item(input_file):
         start_number=0, 
         hls_time=10, 
         hls_segment_filename = seg_name, 
-        hls_list_size=0)
+        hls_list_size=0,
+        acodec='copy',
+        vcodec='copy')
     ffmpeg.run(output_stream)
 
 # Upload HLS Files to COS OUTPUT Bucket
