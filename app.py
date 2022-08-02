@@ -93,6 +93,7 @@ def upload_files(bucket_name):
     files = glob.glob(OUTPUT_PATH + "*")
     for file in files:
         
+        video_name = input_file.split("/")[-1].split(".")[0]
         key = video_name + "/" + file.split("/")[-1]
 
         print("Uploading file to bucket: {0}, key: {1}, path: {2}".format(bucket_name, key, file))
