@@ -10,6 +10,7 @@ COS_ENDPOINT = os.getenv('COS_ENDPOINT')
 COS_AUTH_ENDPOINT = os.getenv('COS_AUTH_ENDPOINT')
 COS_RESOURCE_CRN = os.getenv('COS_RESOURCE_CRN')
 COS_BUCKET_LOCATION = os.getenv('COS_BUCKET_LOCATION')
+COS_HLS_BUCKET = os.getenv('COS_HLS_BUCKET')
 
 # Get from Secrets on Kubernetes
 COS_API_KEY_ID = os.getenv('COS_API_KEY_ID')
@@ -125,7 +126,7 @@ if __name__ == "__main__":
     convert_item(input_file)
 
     # 3. Upload HLS file to COS
-    bucket_hls = "poc-irj-vod"
+    bucket_hls = COS_HLS_BUCKET
     upload_files(bucket_hls)
     # 4. Delete MP4 & HLS
     
