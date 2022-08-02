@@ -85,7 +85,7 @@ def convert_item(input_file):
         hls_time=10, 
         hls_segment_filename = seg_name, 
         hls_list_size=0,
-        acodec='copy',
+        acodec='libmp3lame',
         vcodec='copy')
     ffmpeg.run(output_stream)
 
